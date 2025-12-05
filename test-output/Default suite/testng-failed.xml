@@ -5,7 +5,7 @@
     <classes>
       <class name="com.api.tests.MasterAPITest">
         <methods>
-          <include name="MasterAPITest"/>
+          <include name="invalidTokenMasterAPITest"/>
         </methods>
       </class> <!-- com.api.tests.MasterAPITest -->
     </classes>
