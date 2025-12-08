@@ -1,53 +1,49 @@
 package com.api.tests;
 
-import static io.restassured.RestAssured.given;
-
-import java.io.IOException;
-import java.net.http.HttpResponse.BodyHandler;
-
+import static com.api.constant.Role.FD;
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-import org.checkerframework.checker.index.qual.LessThan;
-import org.hamcrest.Matchers;
+
+import java.io.IOException;
+
+
 import org.testng.annotations.Test;
 
-import com.api.constant.Role;
-import com.api.utils.AuthTokenProvider;
-import com.api.utils.SpecUtil;
+import static com.api.utils.SpecUtil.*;
 
-import static com.api.constant.Role.FD;
-import static com.api.utils.ConfigManager.*;
-
-import io.restassured.module.jsv.JsonSchemaValidator;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class CountAPITest {
-	@Test
+	@Test(description = "Verify if count api is correct response",groups = {"api","regression","smoke"})
 	public void verifyCountAPIResponse() throws IOException
 	{
 		
 	given()
-	.spec(SpecUtil.requestSpecWithAuth(FD))
+	.spec(requestSpecWithAuth(FD))
 	.when()
 	.get("/dashboard/count")
 	.then()
-	.spec(SpecUtil.responseSpec_OK())
+	.spec(responseSpec_OK())
 	.body("message",equalTo("Success"))
 	.body("data",notNullValue())
 	.body("data.size()",equalTo(3))
 	.body("data.count",everyItem(greaterThanOrEqualTo(0)))
-	.body("data.label",Matchers.everyItem(Matchers.not(Matchers.blankOrNullString())))
-	.body("data.key",Matchers.containsInAnyOrder("pending_for_delivery","pending_fst_assignment","created_today"))
-	.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/CountAPIResponseSchema-FD.json"));
+	.body("data.label",everyItem(not(blankOrNullString())))
+	.body("data.key",containsInAnyOrder("pending_for_delivery","pending_fst_assignment","created_today"))
+	.body(matchesJsonSchemaInClasspath("response-schema/CountAPIResponseSchema-FD.json"));
 	}
-	@Test
+	
+	
+	@Test(description = "Verify if count api is correct status code for invalid token",groups = {"api","regression","smoke","negative"})
 	public void countAPITest_MissingAuthToken() throws IOException
 	{
 		given()
-		.spec(SpecUtil.requestSpec())
+		.spec(requestSpec())
 		.when()
 		.get("/dashboard/count")
 		.then()
-		.spec(SpecUtil.responseSpec_TEXT(401));
+		.spec(responseSpec_TEXT(401));
 	}
 
 }

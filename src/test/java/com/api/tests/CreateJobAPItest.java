@@ -1,13 +1,14 @@
 package com.api.tests;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.startsWith;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constant.Model;
@@ -24,36 +25,43 @@ import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.api.utils.DateTimeUtil;
-import com.api.utils.SpecUtil;
+import static com.api.utils.SpecUtil.*;
 
-import io.restassured.module.jsv.JsonSchemaValidator;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class CreateJobAPItest {
-
-	@Test
-
- 	public void CreateJobAPITest() throws IOException {
-
+	
+	
+	private CreateJobPayload createJobPayload;
+	@BeforeMethod(description = "Create the request payload for create job api")
+	public void setup()
+	{
 		Customer customer = new Customer("Debika", "Nag", "7434565434", "", "debika0989@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("912", "Thames", "Napier", "Station", "Reading", "700129",
 				"Berkshire", "UK");
 
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "11236541958888",
-				"11236541958888", "11236541958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "15236541958888",
+				"15236541958888", "15236541958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
 
 		List<Problems> problemList = new ArrayList<Problems>();
 		problemList.add(problems);
 
-		CreateJobPayload createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct,
+		 createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct,
 				problemList);
+	}
 
-		given().spec(SpecUtil.requestSpecWithAuth(Role.FD, createJobPayload))
+	@Test(description = "Verify if create job api is able to create Inwarranty job",groups = {"api","regression","smoke"})
 
-				.when().post("/job/create").then().spec(SpecUtil.responseSpec_OK())
-				.body(JsonSchemaValidator
-						.matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))
+ 	public void CreateJobAPITest() throws IOException {
+
+		
+
+		given().spec(requestSpecWithAuth(Role.FD, createJobPayload))
+
+				.when().post("/job/create").then().spec(responseSpec_OK())
+				.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))
 				.body("message", equalTo("Job created successfully. ")).body("data.mst_service_location_id", equalTo(1))
 				.body("data.job_number", startsWith("JOB_"));
 

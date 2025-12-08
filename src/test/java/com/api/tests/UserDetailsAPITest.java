@@ -1,36 +1,35 @@
 package com.api.tests;
 
-import static com.api.utils.ConfigManagerOLD.getProperty;
+
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.lessThan;
+
 
 import java.io.IOException;
 
 import org.testng.annotations.Test;
 
-import com.api.utils.SpecUtil;
+import static com.api.utils.SpecUtil.*;
 
-import static com.api.utils.AuthTokenProvider.*;
 
-import io.restassured.http.ContentType;
-import io.restassured.http.Header;
-import io.restassured.module.jsv.JsonSchemaValidator;
+
+
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static com.api.constant.Role.*;
 
 public class UserDetailsAPITest {
 	
-	@Test
+	@Test(description = "Verifyif the UserDetails API response is shown correctly",groups = {"api","regression","smoke"})
 	public void userDetailsAPITest() throws IOException {
 		
 		
 	given()
-	.spec(SpecUtil.requestSpecWithAuth(FD))
+	.spec(requestSpecWithAuth(FD))
 	.when()
 	.get("userdetails")
 	.then()
-	.spec(SpecUtil.responseSpec_OK())
+	.spec(responseSpec_OK())
 	.and()
-	.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
+	.body(matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
 	
 		
 	}
