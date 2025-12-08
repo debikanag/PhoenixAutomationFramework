@@ -1,4 +1,4 @@
-package com.api.pojo;
+package com.api.request.model;
 
 public record UserCredentials
 
@@ -6,4 +6,8 @@ public record UserCredentials
 
 {
 
+	
+	
+	
+	
 }
