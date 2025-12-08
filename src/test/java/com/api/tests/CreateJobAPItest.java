@@ -10,7 +10,14 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.api.constant.Model;
+import com.api.constant.OEM;
+import com.api.constant.Platform;
+import com.api.constant.Problem;
+import com.api.constant.Product;
 import com.api.constant.Role;
+import com.api.constant.ServiceLocation;
+import com.api.constant.Warranty_Status;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
@@ -25,21 +32,21 @@ public class CreateJobAPItest {
 
 	@Test
 
-	public void CreateJobAPITest() throws IOException {
+ 	public void CreateJobAPITest() throws IOException {
 
 		Customer customer = new Customer("Debika", "Nag", "7434565434", "", "debika0989@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("912", "Thames", "Napier", "Station", "Reading", "700129",
 				"Berkshire", "UK");
 
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "96986541958887",
-				"96986541958887", "96986541958887", DateTimeUtil.getTimeWithDaysAgo(10), 1, 1);
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "11236541958888",
+				"11236541958888", "11236541958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 
-		Problems problems = new Problems(1, "Battery Issue");
+		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
 
 		List<Problems> problemList = new ArrayList<Problems>();
 		problemList.add(problems);
 
-		CreateJobPayload createJobPayload = new CreateJobPayload(0, 2, 1, 1, customer, customerAddress, customerProduct,
+		CreateJobPayload createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct,
 				problemList);
 
 		given().spec(SpecUtil.requestSpecWithAuth(Role.FD, createJobPayload))
