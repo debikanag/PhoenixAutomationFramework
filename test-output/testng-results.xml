@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-05T17:21:29 GMT" name="Default suite" finished-at="2025-12-05T17:21:34 GMT" duration-ms="5256">
+  <suite started-at="2025-12-08T15:31:52 GMT" name="Default suite" finished-at="2025-12-08T15:31:55 GMT" duration-ms="3334">
     <groups>
+      <group name="regression">
+        <method signature="CreateJobAPItest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPItest@79e2c065]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPItest"/>
+      </group> <!-- regression -->
+      <group name="smoke">
+        <method signature="CreateJobAPItest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPItest@79e2c065]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPItest"/>
+      </group> <!-- smoke -->
+      <group name="api">
+        <method signature="CreateJobAPItest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPItest@79e2c065]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPItest"/>
+      </group> <!-- api -->
     </groups>
-    <test started-at="2025-12-05T17:21:29 GMT" name="Default test" finished-at="2025-12-05T17:21:34 GMT" duration-ms="5256">
-      <class name="com.api.tests.MasterAPITest">
-        <test-method signature="MasterAPITest()[pri:0, instance:com.api.tests.MasterAPITest@595b007d]" started-at="2025-12-05T17:21:29 GMT" name="MasterAPITest" finished-at="2025-12-05T17:21:33 GMT" duration-ms="3730" status="PASS">
+    <test started-at="2025-12-08T15:31:52 GMT" name="Default test" finished-at="2025-12-08T15:31:55 GMT" duration-ms="3334">
+      <class name="com.api.tests.CreateJobAPItest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.CreateJobAPItest@79e2c065]" started-at="2025-12-08T15:31:52 GMT" name="setup" description="Create the request payload for create job api" finished-at="2025-12-08T15:31:52 GMT" duration-ms="13" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- MasterAPITest -->
-        <test-method signature="invalidTokenMasterAPITest()[pri:0, instance:com.api.tests.MasterAPITest@595b007d]" started-at="2025-12-05T17:21:33 GMT" name="invalidTokenMasterAPITest" finished-at="2025-12-05T17:21:34 GMT" duration-ms="1491" status="PASS">
+        </test-method> <!-- setup -->
+        <test-method signature="CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPItest@79e2c065]" started-at="2025-12-08T15:31:52 GMT" name="CreateJobAPITest" description="Verify if create job api is able to create Inwarranty job" finished-at="2025-12-08T15:31:55 GMT" duration-ms="3273" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- invalidTokenMasterAPITest -->
-      </class> <!-- com.api.tests.MasterAPITest -->
+        </test-method> <!-- CreateJobAPITest -->
+      </class> <!-- com.api.tests.CreateJobAPItest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

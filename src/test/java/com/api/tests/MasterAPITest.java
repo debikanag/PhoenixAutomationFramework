@@ -1,57 +1,56 @@
 package com.api.tests;
 
-import static com.api.utils.ConfigManager.*;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.lessThan;
+
+import static com.api.constant.Role.FD;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
 
 import java.io.IOException;
 
-import org.hamcrest.Matchers;
+
 import org.testng.annotations.Test;
 
-import com.api.utils.SpecUtil;
+import static com.api.utils.SpecUtil.*;
 
-import io.restassured.module.jsv.JsonSchemaValidator;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
-import static com.api.constant.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
 
 public class MasterAPITest {
 
-	@Test
+	@Test(description = "Verify if master api is correct response",groups = {"api","regression","smoke"})
 	public void MasterAPITest() throws IOException
 	{
 		given()
-		.spec(SpecUtil.requestSpecWithAuth(FD))
+		.spec(requestSpecWithAuth(FD))
 		.when()
 		.post("master")
 		.then()
-		.spec(SpecUtil.responseSpec_OK())
+		.spec(responseSpec_OK())
 		.body("message",equalTo("Success"))
-		.body("data",Matchers.notNullValue())
-		.body("data", Matchers.hasKey("mst_oem"))
-		.body("data",Matchers.hasKey("mst_model"))
-		.body("$", Matchers.hasKey("message"))
-		.body("$", Matchers.hasKey("data"))
-		.body("data.mst_oem.size()",Matchers.greaterThan(0))
-		.body("data.mst_oem.size()",Matchers.equalTo(2))
-		.body("data.mst_model.size()",Matchers.greaterThan(0))
-		.body("data.mst_oem.id", Matchers.everyItem(Matchers.notNullValue()))
-		.body("data.mst_oem.name", Matchers.everyItem(Matchers.notNullValue()))
+		.body("data",notNullValue())
+		.body("data", hasKey("mst_oem"))
+		.body("data",hasKey("mst_model"))
+		.body("$", hasKey("message"))
+		.body("$", hasKey("data"))
+		.body("data.mst_oem.size()",greaterThan(0))
+		.body("data.mst_oem.size()",equalTo(2))
+		.body("data.mst_model.size()",greaterThan(0))
+		.body("data.mst_oem.id", everyItem(notNullValue()))
+		.body("data.mst_oem.name",everyItem(notNullValue()))
 		.time(lessThan(1000L))
-		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/MasterAPIResponseSchema.json"));
+		.body(matchesJsonSchemaInClasspath("response-schema/MasterAPIResponseSchema.json"));
 		
 	}
-	@Test
+	@Test(description = "Verify if master api is correct status code for invalid token",groups = {"api","regression","smoke","negative"})
 	public void invalidTokenMasterAPITest() throws IOException
 	{
 		given()
-		.spec(SpecUtil.requestSpec())
+		.spec(requestSpec())
 		.when()
 		.post("master")
 		.then()
-		.spec(SpecUtil.responseSpec_TEXT(401));
+		.spec(responseSpec_TEXT(401));
 	}
 	
 	
