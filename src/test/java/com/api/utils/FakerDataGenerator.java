@@ -27,6 +27,7 @@ public class FakerDataGenerator {
 	private final static int MST_OEM_ID = 1;
 	private final static int PRODUCT_ID = 1;
 	private final static int MST_MODEL_ID = 1;
+	private final static int VALIDPROBLEMSID[] = {1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,19,20,22,24,26,27,28,29};
 
 	public static Iterator<CreateJobPayload> generateFakeCreateJobData(int count) {
 		
@@ -47,10 +48,10 @@ public class FakerDataGenerator {
 
 	private static List<Problems> generateFakeProblemList() {
 
-		int problemId = RANDOM.nextInt(27) + 1;
+		int randomIndex = RANDOM.nextInt(VALIDPROBLEMSID.length);
 
 		String fakeRemark = faker.lorem().sentence(3);
-		Problems problems = new Problems(problemId, fakeRemark);
+		Problems problems = new Problems(VALIDPROBLEMSID[randomIndex], fakeRemark);
 	
 
 		List<Problems> problemList = new ArrayList<Problems>();
