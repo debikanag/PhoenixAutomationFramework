@@ -1,55 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+<testng-results ignored="0" total="3" passed="0" failed="3" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-17T20:36:31 GMT" name="Default suite" finished-at="2025-12-17T20:36:34 GMT" duration-ms="2509">
+  <suite started-at="2025-12-17T21:19:01 GMT" name="Default suite" finished-at="2025-12-17T21:19:03 GMT" duration-ms="2338">
     <groups>
       <group name="datadriven">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.api.request.model.UserCredentials)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@1189dd52]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
+        <method signature="CreateJobAPIJsonTest.CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" name="CreateJobAPITest" class="com.api.tests.datadriven.CreateJobAPIJsonTest"/>
       </group> <!-- datadriven -->
       <group name="regression">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.api.request.model.UserCredentials)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@1189dd52]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
+        <method signature="CreateJobAPIJsonTest.CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" name="CreateJobAPITest" class="com.api.tests.datadriven.CreateJobAPIJsonTest"/>
       </group> <!-- regression -->
+      <group name="json">
+        <method signature="CreateJobAPIJsonTest.CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" name="CreateJobAPITest" class="com.api.tests.datadriven.CreateJobAPIJsonTest"/>
+      </group> <!-- json -->
       <group name="api">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.api.request.model.UserCredentials)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@1189dd52]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
+        <method signature="CreateJobAPIJsonTest.CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" name="CreateJobAPITest" class="com.api.tests.datadriven.CreateJobAPIJsonTest"/>
       </group> <!-- api -->
     </groups>
-    <test started-at="2025-12-17T20:36:31 GMT" name="Default test" finished-at="2025-12-17T20:36:34 GMT" duration-ms="2509">
-      <class name="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest">
-        <test-method signature="loginAPITest(com.api.request.model.UserCredentials)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@1189dd52]" started-at="2025-12-17T20:36:32 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" data-provider="LoginAPIJsonDataProvider" finished-at="2025-12-17T20:36:34 GMT" duration-ms="2270" status="PASS">
+    <test started-at="2025-12-17T21:19:01 GMT" name="Default test" finished-at="2025-12-17T21:19:03 GMT" duration-ms="2338">
+      <class name="com.api.tests.datadriven.CreateJobAPIJsonTest">
+        <test-method signature="CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" started-at="2025-12-17T21:19:01 GMT" name="CreateJobAPITest" description="Verify if create job api is able to create Inwarranty job" data-provider="CreateJobAPIJsonDataProvider" finished-at="2025-12-17T21:19:03 GMT" duration-ms="2075" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[UserCredentials[username=iamsup, password=password]]]>
+                <![CDATA[CreateJobPayload[mst_service_location_id=0, mst_platform_id=2, mst_warrenty_status_id=1, mst_oem_id=1, customer=Customer[first_name=Nico, last_name=D'Amore, mobile_number=395-592-7234, mobile_number_alt=, email_id=Orville18@gmail.com, email_id_alt=], customer_address=CustomerAddress[flat_number=c 304, apartment_name=Jupiter, street_name=MG road, landmark=Bangur Nagar, area=Goregaon West, pincode=411039, country=India, state=Maharashtra], customer_product=CustomerProduct[dop=2025-04-06T18:30:00.000Z, serial_number=75870772634549, imei1=75870772634549, imei2=75870772634549, popurl=2025-04-06T18:30:00.000Z, product_id=1, mst_model_id=1], problems=[Problems[id=1, remark=Battery Issue], Problems[id=2, remark=Not Working]]]]]>
               </value>
             </param>
           </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[1 expectation failed.
+Expected status code <200> but was <500>.
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: 1 expectation failed.
+Expected status code <200> but was <500>.
+
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:57)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$4.call(Unknown Source)
+at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:45)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+at io.restassured.internal.ResponseSpecificationImpl.validate(ResponseSpecificationImpl.groovy:101)
+at io.restassured.internal.ValidatableResponseOptionsImpl.spec(ValidatableResponseOptionsImpl.java:288)
+at com.api.tests.datadriven.CreateJobAPIJsonTest.CreateJobAPITest(CreateJobAPIJsonTest.java:28)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)
+at org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginAPITest -->
-        <test-method signature="loginAPITest(com.api.request.model.UserCredentials)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@1189dd52]" started-at="2025-12-17T20:36:32 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" data-provider="LoginAPIJsonDataProvider" finished-at="2025-12-17T20:36:34 GMT" duration-ms="2270" status="PASS">
+        </test-method> <!-- CreateJobAPITest -->
+        <test-method signature="CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" started-at="2025-12-17T21:19:01 GMT" name="CreateJobAPITest" description="Verify if create job api is able to create Inwarranty job" data-provider="CreateJobAPIJsonDataProvider" finished-at="2025-12-17T21:19:03 GMT" duration-ms="2113" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[UserCredentials[username=iameng, password=password]]]>
+                <![CDATA[CreateJobPayload[mst_service_location_id=0, mst_platform_id=2, mst_warrenty_status_id=1, mst_oem_id=1, customer=Customer[first_name=Mico, last_name=D'Amore, mobile_number=395-592-7234, mobile_number_alt=, email_id=Orville18@gmail.com, email_id_alt=], customer_address=CustomerAddress[flat_number=c 304, apartment_name=Jupiter, street_name=MG road, landmark=Bangur Nagar, area=Goregaon West, pincode=411039, country=India, state=Maharashtra], customer_product=CustomerProduct[dop=2025-04-06T18:30:00.000Z, serial_number=15870772634549, imei1=15870772634549, imei2=15870772634549, popurl=2025-04-06T18:30:00.000Z, product_id=1, mst_model_id=1], problems=[Problems[id=1, remark=Battery Issue]]]]]>
               </value>
             </param>
           </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[1 expectation failed.
+Expected status code <200> but was <500>.
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: 1 expectation failed.
+Expected status code <200> but was <500>.
+
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$4.call(Unknown Source)
+at io.restassured.internal.ResponseSpecificationImpl.validate(ResponseSpecificationImpl.groovy:101)
+at io.restassured.internal.ValidatableResponseOptionsImpl.spec(ValidatableResponseOptionsImpl.java:288)
+at com.api.tests.datadriven.CreateJobAPIJsonTest.CreateJobAPITest(CreateJobAPIJsonTest.java:28)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)
+at org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginAPITest -->
-        <test-method signature="loginAPITest(com.api.request.model.UserCredentials)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@1189dd52]" started-at="2025-12-17T20:36:32 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" data-provider="LoginAPIJsonDataProvider" finished-at="2025-12-17T20:36:34 GMT" duration-ms="2270" status="PASS">
+        </test-method> <!-- CreateJobAPITest -->
+        <test-method signature="CreateJobAPITest(com.api.request.model.CreateJobPayload)[pri:0, instance:com.api.tests.datadriven.CreateJobAPIJsonTest@1189dd52]" started-at="2025-12-17T21:19:01 GMT" name="CreateJobAPITest" description="Verify if create job api is able to create Inwarranty job" data-provider="CreateJobAPIJsonDataProvider" finished-at="2025-12-17T21:19:03 GMT" duration-ms="2075" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[UserCredentials[username=iamfd, password=password]]]>
+                <![CDATA[CreateJobPayload[mst_service_location_id=0, mst_platform_id=2, mst_warrenty_status_id=1, mst_oem_id=1, customer=Customer[first_name=Uico, last_name=D'Amore, mobile_number=395-592-7234, mobile_number_alt=, email_id=Orville18@gmail.com, email_id_alt=], customer_address=CustomerAddress[flat_number=c 304, apartment_name=Jupiter, street_name=MG road, landmark=Bangur Nagar, area=Goregaon West, pincode=411039, country=India, state=Maharashtra], customer_product=CustomerProduct[dop=2025-04-06T18:30:00.000Z, serial_number=95870772634549, imei1=95870772634549, imei2=95870772634549, popurl=2025-04-06T18:30:00.000Z, product_id=1, mst_model_id=1], problems=[Problems[id=1, remark=Battery Issue], Problems[id=2, remark=Not Working]]]]]>
               </value>
             </param>
           </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[1 expectation failed.
+Expected status code <200> but was <500>.
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: 1 expectation failed.
+Expected status code <200> but was <500>.
+
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:57)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$4.call(Unknown Source)
+at io.restassured.internal.ResponseSpecificationImpl.validate(ResponseSpecificationImpl.groovy:101)
+at io.restassured.internal.ValidatableResponseOptionsImpl.spec(ValidatableResponseOptionsImpl.java:288)
+at com.api.tests.datadriven.CreateJobAPIJsonTest.CreateJobAPITest(CreateJobAPIJsonTest.java:28)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)
+at org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginAPITest -->
-      </class> <!-- com.api.tests.datadriven.LoginAPIJSONDataDrivenTest -->
+        </test-method> <!-- CreateJobAPITest -->
+      </class> <!-- com.api.tests.datadriven.CreateJobAPIJsonTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
