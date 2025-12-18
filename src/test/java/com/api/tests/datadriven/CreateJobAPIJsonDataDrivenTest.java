@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import com.api.constant.Role;
 import com.api.request.model.CreateJobPayload;
 
-public class CreateJobAPIJsonTest {
+public class CreateJobAPIJsonDataDrivenTest {
 
 
 

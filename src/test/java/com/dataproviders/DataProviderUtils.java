@@ -7,8 +7,10 @@ import java.util.List;
 import org.testng.annotations.DataProvider;
 
 import com.api.request.model.CreateJobPayload;
+import com.api.request.model.UserCredentials;
 import com.api.utils.CSVReaderUtil;
 import com.api.utils.CreateJobBeanMapper;
+import com.api.utils.ExcelReaderUtil;
 import com.api.utils.FakerDataGenerator;
 import com.api.utils.JsonReaderUtil;
 import com.dataproviders.api.bean.CreateJobBean;
@@ -55,9 +57,9 @@ public class DataProviderUtils {
 	}
 
 	@DataProvider(name = "LoginAPIJsonDataProvider", parallel = true)
-	public static Iterator<CreateJobPayload> LoginAPIJsonDataProvider() {
+	public static Iterator<UserCredentials> LoginAPIJsonDataProvider() {
 
-		return JsonReaderUtil.loadJSON("testData/loginAPITestData.json", CreateJobPayload[].class);
+		return JsonReaderUtil.loadJSON("testData/loginAPITestData.json", UserCredentials[].class);
 
 	}
 
@@ -68,4 +70,27 @@ public class DataProviderUtils {
 
 	}
 
+	@DataProvider(name = "LoginAPIExcelDataProvider", parallel = true)
+	public static Iterator<UserBean> LoginAPIExcelDataProvider() {
+
+		return ExcelReaderUtil.loadTestData("testData/PhoenixTestData.xlsx", "LoginTestData", UserBean.class);
+
+	}
+
+	@DataProvider(name = "CreateJobAPIExcelDataProvider", parallel = true)
+	public static Iterator<CreateJobPayload> CreateJobAPIExcelDataProvider() {
+
+		Iterator<CreateJobBean> iterator = ExcelReaderUtil.loadTestData("testData/PhoenixTestData.xlsx",
+				"CreateJobTestData", CreateJobBean.class);
+		List<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
+		CreateJobBean tempBean;
+		CreateJobPayload tempPayload;
+		while (iterator.hasNext()) {
+			tempBean = iterator.next();
+			tempPayload = CreateJobBeanMapper.mapper(tempBean);
+			payloadList.add(tempPayload);
+
+		}
+		return payloadList.iterator();
+	}
 }
