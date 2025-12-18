@@ -10,16 +10,16 @@ import java.io.IOException;
 
 import org.testng.annotations.Test;
 
-import com.api.request.model.UserCredentials;
+import com.dataproviders.api.bean.UserBean;
 
 public class LoginAPIExcelDataDrivenTest {
 
 	@Test(description = "Verifying if login api is working for FD user", groups = { "api", "regression", "datadriven",
-			"json" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIExcelDataProvider")
+			"excel" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIExcelDataProvider")
 
-	public void loginAPITest(UserCredentials userCredentials) throws IOException {
+	public void loginAPITest(UserBean userBean) throws IOException {
 
-		given().spec(requestSpec(userCredentials)).when().post("login").then().spec(responseSpec_OK())
+		given().spec(requestSpec(userBean)).when().post("login").then().spec(responseSpec_OK())
 				.body("message", equalTo("Success")).and()
 				.body(matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));
 
