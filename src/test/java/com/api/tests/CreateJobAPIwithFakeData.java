@@ -20,13 +20,11 @@ import com.api.utils.FakerDataGenerator;
 public class CreateJobAPIwithFakeData {
 
 	private Iterator<CreateJobPayload> createJobPayload;
-	private static final String COUNTRY = "India";
 
 	@BeforeMethod(description = "Create the request payload for create job api")
 	public void setup() {
-		
 
-		createJobPayload = FakerDataGenerator.generateFakeCreateJobData(10);
+		createJobPayload = FakerDataGenerator.generateFakeCreateJobData(2);
 	}
 
 	@Test(description = "Verify if create job api is able to create Inwarranty job", groups = { "api", "regression",

@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
 
-import com.dataproviders.api.bean.UserBean;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -30,13 +29,10 @@ public class CSVReaderUtil {
 
 		// write the code to map the CSV to POJO
 
-		CsvToBean<T> csvToBean = new CsvToBeanBuilder(csvReader)
-				.withType(bean)
-				.withIgnoreEmptyLine(true)
-				.build();
+		CsvToBean<T> csvToBean = new CsvToBeanBuilder(csvReader).withType(bean).withIgnoreEmptyLine(true).build();
 
 		List<T> list = csvToBean.parse();
-	return	list.iterator();
+		return list.iterator();
 
 	}
 }
