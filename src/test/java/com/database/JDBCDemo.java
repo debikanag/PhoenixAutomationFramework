@@ -12,6 +12,7 @@ public class JDBCDemo {
 		
 		
 		//step 1: establish the connection to the phoenix database
+		//driver manager uses factory design pattern
 	Connection conn	=DriverManager.getConnection("jdbc:mysql://64.227.160.186 :3306/SR_DEV", "srdev_ro_automation", "Srdev@123");
 
 	Statement statement =conn.createStatement();

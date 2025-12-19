@@ -1,7 +1,6 @@
 package com.api.utils;
 
-import java.io.FileNotFoundException;
-//import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -51,7 +50,7 @@ public class ConfigManager {
 
 	}
 
-	public static String getProperty(String key) throws IOException {
+	public static String getProperty(String key) {
 
 		// Load the properties file using the load()
 

@@ -23,8 +23,9 @@ public class CreateJobAPIwithFakeData {
 
 	@BeforeMethod(description = "Create the request payload for create job api")
 	public void setup() {
-
-		createJobPayload = FakerDataGenerator.generateFakeCreateJobData(2);
+		
+		createJobPayload = FakerDataGenerator.generateFakeCreateJobData(1);
+		System.out.println(createJobPayload);
 	}
 
 	@Test(description = "Verify if create job api is able to create Inwarranty job", groups = { "api", "regression",
@@ -40,5 +41,6 @@ public class CreateJobAPIwithFakeData {
 				.body("data.job_number", startsWith("JOB_"));
 
 	}
+
 
 }
