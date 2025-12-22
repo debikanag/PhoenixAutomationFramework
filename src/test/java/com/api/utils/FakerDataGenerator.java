@@ -57,7 +57,7 @@ public class FakerDataGenerator {
 
 //generating random problem id and added to the list
 			int randomIndex = RANDOM.nextInt(VALIDPROBLEMSID.length);
-			fakeRemark = faker.lorem().sentence(2);
+			fakeRemark = faker.lorem().sentence(1);
 			problems = new Problems(VALIDPROBLEMSID[randomIndex], fakeRemark);
 
 			problemList.add(problems);
@@ -101,7 +101,7 @@ public class FakerDataGenerator {
 		String alternateMobileNumber = faker.numerify(("70########"));
 		String customerEmailAddress = faker.internet().emailAddress();
 
-		Customer customer = new Customer(fname, lname, mobileNumber, alternateMobileNumber, customerEmailAddress, "");
+		Customer customer = new Customer(fname, lname, mobileNumber, alternateMobileNumber, customerEmailAddress,"");
 
 		return customer;
 	}

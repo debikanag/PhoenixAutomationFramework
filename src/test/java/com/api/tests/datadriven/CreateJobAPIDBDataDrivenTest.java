@@ -1,4 +1,4 @@
-package com.api.tests;
+package com.api.tests.datadriven;
 
 import static com.api.utils.SpecUtil.requestSpecWithAuth;
 import static com.api.utils.SpecUtil.responseSpec_OK;
@@ -8,30 +8,20 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
 
 import java.io.IOException;
-import java.util.Iterator;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constant.Role;
 import com.api.request.model.CreateJobPayload;
-import com.api.utils.FakerDataGenerator;
 
-public class CreateJobAPIwithFakeData {
+public class CreateJobAPIDBDataDrivenTest {
 
-	private Iterator<CreateJobPayload> createJobPayload;
 
-	@BeforeMethod(description = "Create the request payload for create job api")
-	public void setup() {
-		
-		createJobPayload = FakerDataGenerator.generateFakeCreateJobData(1);
-		System.out.println(createJobPayload);
-	}
 
 	@Test(description = "Verify if create job api is able to create Inwarranty job", groups = { "api", "regression",
-			"smoke" })
+			"datadriven"}, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "CreateJobAPIDBDataProvider")
 
-	public void CreateJobAPITest() throws IOException {
+	public void CreateJobAPITest(CreateJobPayload createJobPayload) throws IOException {
 
 		given().spec(requestSpecWithAuth(Role.FD, createJobPayload))
 
@@ -41,6 +31,5 @@ public class CreateJobAPIwithFakeData {
 				.body("data.job_number", startsWith("JOB_"));
 
 	}
-
 
 }
