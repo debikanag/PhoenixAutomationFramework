@@ -28,7 +28,7 @@ public class DatabaseManager {
 
 	private static HikariConfig hikariConfig;
 	private static volatile HikariDataSource hikariDataSource;
-	private static Connection connection=null;
+	private static Connection connection=null ;
 
 	private DatabaseManager() {
 
