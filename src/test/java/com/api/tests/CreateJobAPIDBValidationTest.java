@@ -33,10 +33,12 @@ import com.api.utils.DateTimeUtil;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.JobHeadDao;
 import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.JobHeadModel;
 import com.database.model.MapJobProblemModel;
 
 import io.restassured.response.Response;
@@ -54,8 +56,8 @@ public class CreateJobAPIDBValidationTest {
 		customerAddress = new CustomerAddress("912", "Thames", "Napier", "Station", "Reading", "700129", "Berkshire",
 				"UK");
 
-		customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "77056591958888", "77056591958888",
-				"77056591958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
+		customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "79556591958888", "79556591958888",
+				"79556591958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
 				Model.NEXUS_2_BLUE.getCode());
 
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
@@ -99,8 +101,6 @@ public class CreateJobAPIDBValidationTest {
 			Assert.assertEquals(customer.email_id_alt(), customerDataFromDB.getEmail_id_alt());
 			System.out.println("------------------------");
 
-			
-
 			CustomerAddressDBModel customerAddressFromDB = CustomerAddressDao
 					.getCustomerAddress(customerDataFromDB.getTr_customer_address_id());
 			System.out.println(customerAddressFromDB);
@@ -127,6 +127,14 @@ public class CreateJobAPIDBValidationTest {
 			Assert.assertEquals(customerProduct.imei1(), customerProductFromDB.getImei1());
 			Assert.assertEquals(customerProduct.imei2(), customerProductFromDB.getImei2());
 			Assert.assertEquals(customerProduct.popurl(), customerProductFromDB.getPopurl());
+
+			JobHeadModel jobHeadFromDB = JobHeadDao.getDataFromJobhead(customerId);
+			System.out.println(jobHeadFromDB);
+
+			Assert.assertEquals(createJobPayload.mst_warrenty_status_id(), jobHeadFromDB.getMst_warrenty_status_id());
+			Assert.assertEquals(createJobPayload.mst_oem_id(), jobHeadFromDB.getMst_oem_id());
+			Assert.assertEquals(createJobPayload.mst_service_location_id(), jobHeadFromDB.getMst_service_location_id());
+			Assert.assertEquals(createJobPayload.mst_platform_id(), jobHeadFromDB.getMst_platform_id());
 
 			int tr_job_head_id = response.then().extract().jsonPath().getInt("data.id");
 			System.out.println(tr_job_head_id);

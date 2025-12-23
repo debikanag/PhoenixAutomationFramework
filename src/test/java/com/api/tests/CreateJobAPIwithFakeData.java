@@ -24,10 +24,12 @@ import com.api.utils.FakerDataGenerator;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.JobHeadDao;
 import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.JobHeadModel;
 import com.database.model.MapJobProblemModel;
 
 public class CreateJobAPIwithFakeData {
@@ -39,6 +41,9 @@ public class CreateJobAPIwithFakeData {
 
 		createJobPayload = FakerDataGenerator.generateFakeCreateJobData();
 		System.out.println(createJobPayload);
+		System.out.println("------------------------");
+		System.out.println(createJobPayload.mst_service_location_id());
+		System.out.println("------------------------");
 	}
 
 	@Test(description = "Verify if create job api is able to create Inwarranty job", groups = { "api", "regression",
@@ -49,7 +54,8 @@ public class CreateJobAPIwithFakeData {
 		CustomerDBModel actualCustomerDataInDB = null;
 		CustomerAddressDBModel actualCustomerAddressInDB = null;
 		CustomerProductDBModel actualCustomerProductInDB = null;
-		MapJobProblemModel actualProblemInDB=null;
+		JobHeadModel actualJobDataInDB = null;
+		MapJobProblemModel actualProblemInDB = null;
 
 		try {
 			CreateJobResponseModel createJobResponseModel = given().spec(requestSpecWithAuth(Role.FD, createJobPayload))
@@ -62,34 +68,22 @@ public class CreateJobAPIwithFakeData {
 
 			int customerId = createJobResponseModel.getData().getTr_customer_id();
 			int customerProductId = createJobResponseModel.getData().getTr_customer_product_id();
-			int jobHeadId=createJobResponseModel.getData().getId();
+			int jobHeadId = createJobResponseModel.getData().getId();
 
-			
-			
-			
 			actualCustomerDataInDB = CustomerDao.getCustomerInformation(customerId);
 			actualCustomerAddressInDB = CustomerAddressDao
 					.getCustomerAddress(actualCustomerDataInDB.getTr_customer_address_id());
 
-		    actualCustomerProductInDB = CustomerProductDao.getCustomerProduct(customerProductId);
-		    actualProblemInDB=MapJobProblemDao.getProblemDetails(jobHeadId);
-			
-		    
-		    
-		    
-		    
-		    
-		    Customer expectedCustomerData = createJobPayload.customer();
-		    
+			actualCustomerProductInDB = CustomerProductDao.getCustomerProduct(customerProductId);
+
+			actualJobDataInDB = JobHeadDao.getDataFromJobhead(customerId);
+			actualProblemInDB = MapJobProblemDao.getProblemDetails(jobHeadId);
+
+			Customer expectedCustomerData = createJobPayload.customer();
+
 			CustomerAddress expectedCustomerAddress = createJobPayload.customer_address();
-			
-			
+
 			CustomerProduct expectedCustomerProduct = createJobPayload.customer_product();
-			
-			
-			
-			
-			
 
 			Assert.assertEquals(expectedCustomerData.first_name(), actualCustomerDataInDB.getFirst_name());
 			Assert.assertEquals(expectedCustomerData.last_name(), actualCustomerDataInDB.getLast_name());
@@ -98,8 +92,6 @@ public class CreateJobAPIwithFakeData {
 					actualCustomerDataInDB.getMobile_number_alt());
 			Assert.assertEquals(expectedCustomerData.email_id(), actualCustomerDataInDB.getEmail_id());
 			Assert.assertEquals(expectedCustomerData.email_id_alt(), actualCustomerDataInDB.getEmail_id_alt());
-
-		
 
 			System.out.println("------------------------");
 			System.out.println(expectedCustomerAddress);
@@ -117,8 +109,6 @@ public class CreateJobAPIwithFakeData {
 			Assert.assertEquals(expectedCustomerAddress.country(), actualCustomerAddressInDB.getCountry());
 			Assert.assertEquals(expectedCustomerAddress.state(), actualCustomerAddressInDB.getState());
 
-			
-
 			System.out.println("------------------------");
 			System.out.println(expectedCustomerProduct);
 
@@ -132,18 +122,30 @@ public class CreateJobAPIwithFakeData {
 			Assert.assertEquals(expectedCustomerProduct.imei1(), actualCustomerProductInDB.getImei1());
 			Assert.assertEquals(expectedCustomerProduct.imei2(), actualCustomerProductInDB.getImei2());
 			Assert.assertEquals(expectedCustomerProduct.popurl(), actualCustomerProductInDB.getPopurl());
-		
-		
-		
+
 			
-		
-		
-		
+			
+			
+			System.out.println("------------------------");
+			System.out.println(actualJobDataInDB.getMst_service_location_id());
+			System.out.println("------------------------");
+			
+			System.out.println(createJobPayload.mst_warrenty_status_id());
+			System.out.println(createJobPayload.mst_oem_id());
+			System.out.println(createJobPayload.mst_service_location_id());
+			System.out.println(createJobPayload.mst_platform_id());
+			System.out.println("------------------------");
+			
+			
+			Assert.assertEquals(createJobPayload.mst_warrenty_status_id(),
+					actualJobDataInDB.getMst_warrenty_status_id());
+			Assert.assertEquals(createJobPayload.mst_oem_id(), actualJobDataInDB.getMst_oem_id());
+			Assert.assertEquals(createJobPayload.mst_service_location_id(),actualJobDataInDB.getMst_service_location_id());
+			Assert.assertEquals(createJobPayload.mst_platform_id(), actualJobDataInDB.getMst_platform_id());
+
 			Assert.assertEquals(createJobPayload.problems().get(0).id(), actualProblemInDB.getMst_problem_id());
 			Assert.assertEquals(createJobPayload.problems().get(0).remark(), actualProblemInDB.getRemark());
-		
-		
-		
+
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
