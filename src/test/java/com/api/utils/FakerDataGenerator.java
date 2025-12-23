@@ -14,9 +14,6 @@ import com.api.request.model.Problems;
 import com.github.javafaker.Faker;
 
 public class FakerDataGenerator {
-	private FakerDataGenerator() {
-
-	}
 
 	private static Faker faker = new Faker(new Locale("en-IND"));// India specific data
 	private static final String COUNTRY = "India";
@@ -29,6 +26,24 @@ public class FakerDataGenerator {
 
 	private static final int VALIDPROBLEMSID[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 19, 20, 22, 24,
 			26, 27, 28, 29 };
+
+	private FakerDataGenerator() {
+
+	}
+
+	public static CreateJobPayload generateFakeCreateJobData() {
+
+	
+
+		Customer customer = generateFakeCustomerData();
+		CustomerAddress customerAddress = generateFakeCustomerAddressData();
+		CustomerProduct customerProduct = generateFakeCustomerProduct();
+		List<Problems> problemList = generateFakeProblemList();
+		CreateJobPayload payload = new CreateJobPayload(MST_SERVICE_LOCATION_ID, MST_PLATFORM_ID,
+				MST_WARRANTY_STATUS_ID, MST_OEM_ID, customer, customerAddress, customerProduct, problemList);
+		return payload;
+
+	}
 
 	public static Iterator<CreateJobPayload> generateFakeCreateJobData(int count) {
 
@@ -101,7 +116,7 @@ public class FakerDataGenerator {
 		String alternateMobileNumber = faker.numerify(("70########"));
 		String customerEmailAddress = faker.internet().emailAddress();
 
-		Customer customer = new Customer(fname, lname, mobileNumber, alternateMobileNumber, customerEmailAddress,"");
+		Customer customer = new Customer(fname, lname, mobileNumber, alternateMobileNumber, customerEmailAddress, "");
 
 		return customer;
 	}

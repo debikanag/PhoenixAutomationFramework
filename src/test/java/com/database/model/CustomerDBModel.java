@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class CustomerDBModel {
+	private int id;
 
 	private String first_name;
 	private String last_name;
@@ -16,5 +17,6 @@ public class CustomerDBModel {
 	private String mobile_number_alt;
 	private String email_id;
 	private String email_id_alt;
+	private int tr_customer_address_id;
 
 }
