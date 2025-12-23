@@ -24,9 +24,11 @@ import com.api.utils.FakerDataGenerator;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.MapJobProblemModel;
 
 public class CreateJobAPIwithFakeData {
 
@@ -47,6 +49,7 @@ public class CreateJobAPIwithFakeData {
 		CustomerDBModel actualCustomerDataInDB = null;
 		CustomerAddressDBModel actualCustomerAddressInDB = null;
 		CustomerProductDBModel actualCustomerProductInDB = null;
+		MapJobProblemModel actualProblemInDB=null;
 
 		try {
 			CreateJobResponseModel createJobResponseModel = given().spec(requestSpecWithAuth(Role.FD, createJobPayload))
@@ -58,16 +61,35 @@ public class CreateJobAPIwithFakeData {
 					.extract().as(CreateJobResponseModel.class);
 
 			int customerId = createJobResponseModel.getData().getTr_customer_id();
+			int customerProductId = createJobResponseModel.getData().getTr_customer_product_id();
+			int jobHeadId=createJobResponseModel.getData().getId();
 
+			
+			
+			
 			actualCustomerDataInDB = CustomerDao.getCustomerInformation(customerId);
 			actualCustomerAddressInDB = CustomerAddressDao
 					.getCustomerAddress(actualCustomerDataInDB.getTr_customer_address_id());
 
-			int customerProductId = createJobResponseModel.getData().getTr_customer_product_id();
-
-			actualCustomerProductInDB = CustomerProductDao.getCustomerProduct(customerProductId);
-
-			Customer expectedCustomerData = createJobPayload.customer();
+		    actualCustomerProductInDB = CustomerProductDao.getCustomerProduct(customerProductId);
+		    actualProblemInDB=MapJobProblemDao.getProblemDetails(jobHeadId);
+			
+		    
+		    
+		    
+		    
+		    
+		    Customer expectedCustomerData = createJobPayload.customer();
+		    
+			CustomerAddress expectedCustomerAddress = createJobPayload.customer_address();
+			
+			
+			CustomerProduct expectedCustomerProduct = createJobPayload.customer_product();
+			
+			
+			
+			
+			
 
 			Assert.assertEquals(expectedCustomerData.first_name(), actualCustomerDataInDB.getFirst_name());
 			Assert.assertEquals(expectedCustomerData.last_name(), actualCustomerDataInDB.getLast_name());
@@ -77,7 +99,7 @@ public class CreateJobAPIwithFakeData {
 			Assert.assertEquals(expectedCustomerData.email_id(), actualCustomerDataInDB.getEmail_id());
 			Assert.assertEquals(expectedCustomerData.email_id_alt(), actualCustomerDataInDB.getEmail_id_alt());
 
-			CustomerAddress expectedCustomerAddress = createJobPayload.customer_address();
+		
 
 			System.out.println("------------------------");
 			System.out.println(expectedCustomerAddress);
@@ -95,7 +117,7 @@ public class CreateJobAPIwithFakeData {
 			Assert.assertEquals(expectedCustomerAddress.country(), actualCustomerAddressInDB.getCountry());
 			Assert.assertEquals(expectedCustomerAddress.state(), actualCustomerAddressInDB.getState());
 
-			CustomerProduct expectedCustomerProduct = createJobPayload.customer_product();
+			
 
 			System.out.println("------------------------");
 			System.out.println(expectedCustomerProduct);
@@ -110,6 +132,18 @@ public class CreateJobAPIwithFakeData {
 			Assert.assertEquals(expectedCustomerProduct.imei1(), actualCustomerProductInDB.getImei1());
 			Assert.assertEquals(expectedCustomerProduct.imei2(), actualCustomerProductInDB.getImei2());
 			Assert.assertEquals(expectedCustomerProduct.popurl(), actualCustomerProductInDB.getPopurl());
+		
+		
+		
+			
+		
+		
+		
+			Assert.assertEquals(createJobPayload.problems().get(0).id(), actualProblemInDB.getMst_problem_id());
+			Assert.assertEquals(createJobPayload.problems().get(0).remark(), actualProblemInDB.getRemark());
+		
+		
+		
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}

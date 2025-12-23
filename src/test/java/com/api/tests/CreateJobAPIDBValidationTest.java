@@ -33,9 +33,11 @@ import com.api.utils.DateTimeUtil;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.MapJobProblemModel;
 
 import io.restassured.response.Response;
 
@@ -52,8 +54,8 @@ public class CreateJobAPIDBValidationTest {
 		customerAddress = new CustomerAddress("912", "Thames", "Napier", "Station", "Reading", "700129", "Berkshire",
 				"UK");
 
-		customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "75056591958888", "75056591958888",
-				"75056591958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
+		customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "77056591958888", "77056591958888",
+				"77056591958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
 				Model.NEXUS_2_BLUE.getCode());
 
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
@@ -97,7 +99,7 @@ public class CreateJobAPIDBValidationTest {
 			Assert.assertEquals(customer.email_id_alt(), customerDataFromDB.getEmail_id_alt());
 			System.out.println("------------------------");
 
-			// System.out.println(customerDataFromDB.getTr_customer_address_id());
+			
 
 			CustomerAddressDBModel customerAddressFromDB = CustomerAddressDao
 					.getCustomerAddress(customerDataFromDB.getTr_customer_address_id());
@@ -125,6 +127,15 @@ public class CreateJobAPIDBValidationTest {
 			Assert.assertEquals(customerProduct.imei1(), customerProductFromDB.getImei1());
 			Assert.assertEquals(customerProduct.imei2(), customerProductFromDB.getImei2());
 			Assert.assertEquals(customerProduct.popurl(), customerProductFromDB.getPopurl());
+
+			int tr_job_head_id = response.then().extract().jsonPath().getInt("data.id");
+			System.out.println(tr_job_head_id);
+
+			MapJobProblemModel problemFromDB = MapJobProblemDao.getProblemDetails(tr_job_head_id);
+			System.out.println(problemFromDB);
+
+			Assert.assertEquals(createJobPayload.problems().get(0).id(), problemFromDB.getMst_problem_id());
+			Assert.assertEquals(createJobPayload.problems().get(0).remark(), problemFromDB.getRemark());
 
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
