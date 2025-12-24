@@ -42,6 +42,12 @@ jobs:
             echo "suiteXmlFile=${{ github.event.inputs.suiteXmlFile || 'testng.xml'}}" >> $GITHUB_OUTPUT
             echo "env=${{ github.event.inputs.env || 'qa'}}" >> $GITHUB_OUTPUT
 
+    - name: Creating the .env file
+      run: |
+            echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+            echo "DB_USER_NAME=${{ secrets.DB_USER_NAME }}" >> .env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+         
 
 
       
