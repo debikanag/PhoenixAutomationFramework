@@ -143,8 +143,8 @@ public class CreateJobAPIwithFakeData {
 			Assert.assertEquals(createJobPayload.mst_service_location_id(),actualJobDataInDB.getMst_service_location_id());
 			Assert.assertEquals(createJobPayload.mst_platform_id(), actualJobDataInDB.getMst_platform_id());
 
-			Assert.assertEquals(createJobPayload.problems().get(0).id(), actualProblemInDB.getMst_problem_id());
-			Assert.assertEquals(createJobPayload.problems().get(0).remark(), actualProblemInDB.getRemark());
+			Assert.assertEquals(createJobPayload.problems().get(1).id(), actualProblemInDB.getMst_problem_id());
+			Assert.assertEquals(createJobPayload.problems().get(1).remark(), actualProblemInDB.getRemark());
 
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();

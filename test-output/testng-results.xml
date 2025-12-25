@@ -2,25 +2,25 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-24T13:52:49 GMT" name="Default suite" finished-at="2025-12-24T13:52:59 GMT" duration-ms="10120">
+  <suite started-at="2025-12-24T23:56:43 GMT" name="Default suite" finished-at="2025-12-24T23:58:09 GMT" duration-ms="86526">
     <groups>
       <group name="regression">
-        <method signature="CreateJobAPIDBValidationTest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@1bd4fdd]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPIDBValidationTest"/>
+        <method signature="CreateJobAPIDBValidationTest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@4f83df68]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPIDBValidationTest"/>
       </group> <!-- regression -->
       <group name="smoke">
-        <method signature="CreateJobAPIDBValidationTest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@1bd4fdd]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPIDBValidationTest"/>
+        <method signature="CreateJobAPIDBValidationTest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@4f83df68]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPIDBValidationTest"/>
       </group> <!-- smoke -->
       <group name="api">
-        <method signature="CreateJobAPIDBValidationTest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@1bd4fdd]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPIDBValidationTest"/>
+        <method signature="CreateJobAPIDBValidationTest.CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@4f83df68]" name="CreateJobAPITest" class="com.api.tests.CreateJobAPIDBValidationTest"/>
       </group> <!-- api -->
     </groups>
-    <test started-at="2025-12-24T13:52:49 GMT" name="Default test" finished-at="2025-12-24T13:52:59 GMT" duration-ms="10120">
+    <test started-at="2025-12-24T23:56:43 GMT" name="Default test" finished-at="2025-12-24T23:58:09 GMT" duration-ms="86526">
       <class name="com.api.tests.CreateJobAPIDBValidationTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@1bd4fdd]" started-at="2025-12-24T13:52:49 GMT" name="setup" description="Create the request payload for create job api" finished-at="2025-12-24T13:52:49 GMT" duration-ms="9" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@4f83df68]" started-at="2025-12-24T23:56:43 GMT" name="setup" description="Create the request payload for create job api" finished-at="2025-12-24T23:56:43 GMT" duration-ms="21" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@1bd4fdd]" started-at="2025-12-24T13:52:49 GMT" name="CreateJobAPITest" description="Verify if create job api is able to create Inwarranty job" finished-at="2025-12-24T13:52:59 GMT" duration-ms="10070" status="PASS">
+        <test-method signature="CreateJobAPITest()[pri:0, instance:com.api.tests.CreateJobAPIDBValidationTest@4f83df68]" started-at="2025-12-24T23:56:43 GMT" name="CreateJobAPITest" description="Verify if create job api is able to create Inwarranty job" finished-at="2025-12-24T23:58:09 GMT" duration-ms="86391" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- CreateJobAPITest -->
