@@ -2,7 +2,7 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-26T22:02:04 GMT" name="Default suite" finished-at="2025-12-26T22:02:06 GMT" duration-ms="1886">
+  <suite started-at="2025-12-26T22:44:09 GMT" name="Default suite" finished-at="2025-12-26T22:44:12 GMT" duration-ms="2115">
     <groups>
       <group name="regression">
         <method signature="LoginAPITest.loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@6cf0e0ba]" name="loginAPITest" class="com.api.tests.LoginAPITest"/>
@@ -14,13 +14,13 @@
         <method signature="LoginAPITest.loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@6cf0e0ba]" name="loginAPITest" class="com.api.tests.LoginAPITest"/>
       </group> <!-- api -->
     </groups>
-    <test started-at="2025-12-26T22:02:04 GMT" name="Default test" finished-at="2025-12-26T22:02:06 GMT" duration-ms="1886">
+    <test started-at="2025-12-26T22:44:09 GMT" name="Default test" finished-at="2025-12-26T22:44:12 GMT" duration-ms="2115">
       <class name="com.api.tests.LoginAPITest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.LoginAPITest@6cf0e0ba]" started-at="2025-12-26T22:02:05 GMT" name="setup" description="Create the request payload for login api" finished-at="2025-12-26T22:02:05 GMT" duration-ms="7" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.LoginAPITest@6cf0e0ba]" started-at="2025-12-26T22:44:09 GMT" name="setup" description="Create the request payload for login api" finished-at="2025-12-26T22:44:09 GMT" duration-ms="6" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@6cf0e0ba]" started-at="2025-12-26T22:02:05 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" finished-at="2025-12-26T22:02:06 GMT" duration-ms="1849" status="PASS">
+        <test-method signature="loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@6cf0e0ba]" started-at="2025-12-26T22:44:09 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" finished-at="2025-12-26T22:44:12 GMT" duration-ms="2081" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAPITest -->
