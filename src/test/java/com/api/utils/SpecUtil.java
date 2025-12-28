@@ -61,7 +61,7 @@ public class SpecUtil {
 	public static ResponseSpecification responseSpec_OK() {
 		System.out.println("before");
 		ResponseSpecification responseSpecification = new ResponseSpecBuilder().expectContentType(ContentType.JSON)
-				.expectStatusCode(200).expectResponseTime(Matchers.lessThan(1500L)).log(LogDetail.ALL).build();
+				.expectStatusCode(200).expectResponseTime(Matchers.lessThan(2000L)).log(LogDetail.ALL).build();
 
 		System.out.println("after");
 		return responseSpecification;

@@ -1,8 +1,6 @@
 package com.api.tests;
 
-import static com.api.utils.SpecUtil.requestSpecWithAuth;
 import static com.api.utils.SpecUtil.responseSpec_OK;
-import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
@@ -29,6 +27,7 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.services.JobService;
 import com.api.utils.DateTimeUtil;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
@@ -49,15 +48,16 @@ public class CreateJobAPIDBValidationTest {
 	private CustomerAddress customerAddress;
 	private Customer customer;
 	private CustomerProduct customerProduct;
+	private JobService jobService;
 
-	@BeforeMethod(description = "Create the request payload for create job api")
+	@BeforeMethod(description = "Create the request payload for create job api and instanciating the Job Service")
 	public void setup() {
 		customer = new Customer("Debika", "Nag", "7434565434", "", "debika0989@gmail.com", "");
 		customerAddress = new CustomerAddress("912", "Thames", "Napier", "Station", "Reading", "700129", "Berkshire",
 				"UK");
 
-		customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "79946591958888", "79946591958888",
-				"79946591958888", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
+		customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "79946591955889", "79946591955889",
+				"79946591955889", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
 				Model.NEXUS_2_BLUE.getCode());
 
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
@@ -68,6 +68,8 @@ public class CreateJobAPIDBValidationTest {
 		createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(),
 				Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer,
 				customerAddress, customerProduct, problemList);
+
+		jobService = new JobService();
 	}
 
 	@Test(description = "Verify if create job api is able to create Inwarranty job", groups = { "api", "regression",
@@ -76,9 +78,7 @@ public class CreateJobAPIDBValidationTest {
 	public void CreateJobAPITest() {
 
 		try {
-			Response response = given().spec(requestSpecWithAuth(Role.FD, createJobPayload))
-
-					.when().post("/job/create").then().spec(responseSpec_OK())
+			Response response = jobService.createJob(Role.FD, createJobPayload).then().spec(responseSpec_OK())
 					.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))
 					.body("message", equalTo("Job created successfully. "))
 					.body("data.mst_service_location_id", equalTo(1)).body("data.job_number", startsWith("JOB_"))
@@ -122,7 +122,7 @@ public class CreateJobAPIDBValidationTest {
 			System.out.println(customerProductFromDB);
 
 			Assert.assertEquals(customerProduct.mst_model_id(), customerProductFromDB.getMst_model_id());
-			// Assert.assertEquals(customerProduct.dop(), customerProductFromDB.getDop());
+			// Assert.assertEquals(customerProduct.dop(), customerProductFromDB.getDop());---database format is different so its failing here
 			Assert.assertEquals(customerProduct.serial_number(), customerProductFromDB.getSerial_number());
 			Assert.assertEquals(customerProduct.imei1(), customerProductFromDB.getImei1());
 			Assert.assertEquals(customerProduct.imei2(), customerProductFromDB.getImei2());
