@@ -12,6 +12,8 @@
       <class name="com.api.tests.CreateJobAPITest"/>
       <class name="com.api.tests.CreateJobAPIwithFakeData"/>
       <class name="com.api.tests.CreateJobAPIDBValidationTest"/>
+      <class name="com.api.tests.DetailsAPITest"/>
+      <class name="com.api.tests.SearchAPITest"/>
     </classes>
   </test>
 </suite>
