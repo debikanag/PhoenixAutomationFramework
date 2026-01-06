@@ -5,6 +5,11 @@ import static io.restassured.RestAssured.given;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.api.request.model.UserCredentials;
+
 import io.restassured.response.Response;
 
 public class AuthService {
@@ -13,9 +18,13 @@ public class AuthService {
 
 	private static final String LOGIN_ENDPOINT = "/login";
 
-	public Response login(Object usercredentials) throws IOException {
+	private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
 
-		Response response = given().spec(requestSpec(usercredentials)).when().post(LOGIN_ENDPOINT);
+	public Response login(Object userCredentials) throws IOException {
+
+		LOGGER.info("Making login request for the payload {}", ((UserCredentials) userCredentials).username());
+
+		Response response = given().spec(requestSpec(userCredentials)).when().post(LOGIN_ENDPOINT);
 
 		return response;
 

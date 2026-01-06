@@ -21,7 +21,7 @@ public class SearchAPITest {
 
 	public void setup() {
 		jobService = new JobService();
-		searchPayload = new Search("JOB_Number");
+		searchPayload = new Search(JOB_Number);
 
 	}
 

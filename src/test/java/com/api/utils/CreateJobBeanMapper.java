@@ -3,6 +3,9 @@ package com.api.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
@@ -13,11 +16,15 @@ import com.dataproviders.api.bean.CreateJobBean;
 public class CreateJobBeanMapper {
 
 	// we will be giving the bean and it will create the payload for CreateJobAPI
+
+	private static final Logger LOGGER = LogManager.getLogger(CreateJobBeanMapper.class);
+
 	private CreateJobBeanMapper() {
 
 	}
 
 	public static CreateJobPayload mapper(CreateJobBean bean) {
+		LOGGER.info("Converting the create job bean {} to create job payload", bean);
 
 		int mst_service_location_id = Integer.parseInt(bean.getMst_service_location_id());
 		int mst_platform_id = Integer.parseInt(bean.getMst_platform_id());
@@ -43,11 +50,13 @@ public class CreateJobBeanMapper {
 		List<Problems> problemList = new ArrayList<Problems>();
 		int id = Integer.parseInt(bean.getProblems__id());
 		Problems problem = new Problems(id, bean.getProblems__remark());
-		
+
 		problemList.add(problem);
 		CreateJobPayload payload = new CreateJobPayload(mst_service_location_id, mst_platform_id,
 				mst_warrenty_status_id, mst_oem_id, customer, customerAddress, customerProduct, problemList);
-	
-	return payload;
+
+		LOGGER.info("Converting the bean to the payload {}", payload);
+
+		return payload;
 	}
 }
