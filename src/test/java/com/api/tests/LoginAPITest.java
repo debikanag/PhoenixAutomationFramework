@@ -9,16 +9,20 @@ import java.io.IOException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
+import com.dataproviders.api.bean.UserBean;
 
 public class LoginAPITest {
-	private UserCredentials userCredentials;
+	private UserBean userCredentials;
 	private AuthService authService;
+	
+	
 
 	@BeforeMethod(description = "Create the request payload for login api")
 	public void setup() {
-		userCredentials = new UserCredentials("iamfd", "password");
+		userCredentials = new UserBean();
+		 userCredentials.setUsername("iamfd");  // hardcode to verify
+		    userCredentials.setPassword("password");
 		authService = new AuthService();
 
 	}

@@ -3,6 +3,9 @@ package com.database;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.utils.ConfigManager;
 import com.api.utils.EnvUtil;
 import com.api.utils.VaultDBConfig;
@@ -14,6 +17,8 @@ public class DatabaseManager {
 	// private static final String DB_URL = EnvUtil.getValue("DB_URL");
 	// private static final String DB_USER_NAME = EnvUtil.getValue("DB_USER_NAME");
 	// private static final String DB_PASSWORD = EnvUtil.getValue("DB_PASSWORD");
+
+	private static final Logger LOGGER = LogManager.getLogger(DatabaseManager.class);
 
 	private static final int MAXIMUM_POOL_SIZE = Integer.parseInt(ConfigManager.getProperty("MAXIMUM_POOL_SIZE"));
 
@@ -32,8 +37,7 @@ public class DatabaseManager {
 	private static volatile HikariDataSource hikariDataSource;
 	private static Connection connection = null;
 
-	
-	private static boolean isVaultUp=true;
+	private static boolean isVaultUp = true;
 	private static final String DB_URL = loadSecret("DB_URL");
 	private static final String DB_USER_NAME = loadSecret("DB_USER_NAME");
 	private static final String DB_PASSWORD = loadSecret("DB_PASSWORD");
@@ -41,28 +45,28 @@ public class DatabaseManager {
 	public static String loadSecret(String key) {
 		String value = null;
 		// value will get its value either from vault or Env
-		
-		if(isVaultUp)
-		{
-		value = VaultDBConfig.getSecret(key);
-		
 
-		if (value == null)// when something goes wrong with vault
+		if (isVaultUp) {
+			value = VaultDBConfig.getSecret(key);
 
-		{
-			System.err.println("Vault is down !! or some issue with Vault");
-			isVaultUp=false;
-		}
+			if (value == null)// when something goes wrong with vault
 
-		else {
+			{
 
-			System.out.println("Reading value from vault");
-			return value;// value is coming from vault
-		}
+				LOGGER.error("Vault is down !! or some issue with Vault");
+				isVaultUp = false;
+			}
+
+			else {
+
+				LOGGER.info("Reading value for the key{} from vault   ", key);
+				return value;// value is coming from vault
+			}
 		}
 
 		// we need to pick up data from Env
-		System.out.println("Reading value from env");
+
+		LOGGER.info("Reading value from env");
 		value = EnvUtil.getValue(key);
 		return value;
 	}
@@ -77,6 +81,7 @@ public class DatabaseManager {
 
 		if (hikariDataSource == null)// first check which all the parallel threads will enter
 		{
+			LOGGER.warn("database connection is not available .....Creating HikariDataSource");
 			synchronized (DatabaseManager.class) {
 
 				if (hikariDataSource == null)// only and only for the first connection request
@@ -96,6 +101,7 @@ public class DatabaseManager {
 					hikariConfig.setPoolName(HIKARI_CP_POOL_NAME);
 
 					hikariDataSource = new HikariDataSource(hikariConfig);
+					LOGGER.info("Hikari DataSource created!!!!!");
 				}
 			}
 
@@ -106,11 +112,14 @@ public class DatabaseManager {
 	public static Connection getConnection() throws SQLException {
 
 		if (hikariDataSource == null) {
+			LOGGER.info("Initializing the database connection using HikariCP");
 			initializePool();
 		}
 
 		else if (hikariDataSource.isClosed()) {
+			LOGGER.error("HIKARI DATA SOURCE IS CLOSED");
 			throw new SQLException("HIKARI DATA SOURCE IS CLOSED");
+
 		}
 		connection = hikariDataSource.getConnection();
 		return connection;

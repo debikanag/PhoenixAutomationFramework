@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DatabaseManager;
 import com.database.model.CustomerProductDBModel;
 
@@ -12,6 +15,8 @@ public class CustomerProductDao {
 
 	// Executing the query for the tr_customer_address table! which will get the
 	// details of customer address
+
+	private static final Logger LOGGER = LogManager.getLogger(CustomerProductDao.class);
 
 	private static final String CUSTOMER_PRODUCT_QUERY = """
 			select id,
@@ -35,9 +40,10 @@ public class CustomerProductDao {
 		CustomerProductDBModel customerProductDBModel = null;
 
 		try {
+			LOGGER.info("Getting the connection from databse manager");
 
 			Connection conn = DatabaseManager.getConnection();
-
+			LOGGER.info("Executing the sql query {}", CUSTOMER_PRODUCT_QUERY);
 			PreparedStatement preparedStatement = conn.prepareStatement(CUSTOMER_PRODUCT_QUERY);
 			preparedStatement.setInt(1, tr_customer_product_id);
 
@@ -53,6 +59,8 @@ public class CustomerProductDao {
 						resultSet.getString("imei1"), resultSet.getString("serial_number"));
 			}
 		} catch (SQLException e) {
+
+			LOGGER.error("Cannot convert the result set to the CustomerProductDBModel bean", e);
 
 			e.printStackTrace();
 		}

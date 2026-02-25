@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.api.request.model.UserCredentials;
+import com.dataproviders.api.bean.UserBean;
 
 import io.restassured.response.Response;
 
@@ -20,9 +21,11 @@ public class AuthService {
 
 	private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
 
-	public Response login(Object userCredentials) throws IOException {
+	public Response login(UserBean userBean) throws IOException {
 
-		LOGGER.info("Making login request for the payload {}", ((UserCredentials) userCredentials).username());
+		UserCredentials userCredentials = new UserCredentials(userBean.getUsername(), userBean.getPassword());
+
+		LOGGER.info("Making login request for the payload {}", userCredentials.username());
 
 		Response response = given().spec(requestSpec(userCredentials)).when().post(LOGIN_ENDPOINT);
 

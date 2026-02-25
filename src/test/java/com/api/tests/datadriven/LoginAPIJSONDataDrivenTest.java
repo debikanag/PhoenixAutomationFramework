@@ -9,8 +9,8 @@ import java.io.IOException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
+import com.dataproviders.api.bean.UserBean;
 
 public class LoginAPIJSONDataDrivenTest {
 
@@ -25,9 +25,9 @@ public class LoginAPIJSONDataDrivenTest {
 	@Test(description = "Verifying if login api is working for FD user", groups = { "api", "regression", "datadriven",
 			"json" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIJsonDataProvider")
 
-	public void loginAPITest(UserCredentials userCredentials) throws IOException {
+	public void loginAPITest(UserBean userBean) throws IOException {
 
-		authService.login(userCredentials).then().spec(responseSpec_OK()).body("message", equalTo("Success")).and()
+		authService.login(userBean).then().spec(responseSpec_OK()).body("message", equalTo("Success")).and()
 				.body(matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));
 
 	}
