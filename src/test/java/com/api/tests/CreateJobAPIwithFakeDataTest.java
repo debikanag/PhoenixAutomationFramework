@@ -31,7 +31,7 @@ import com.database.model.CustomerProductDBModel;
 import com.database.model.JobHeadModel;
 import com.database.model.MapJobProblemModel;
 
-public class CreateJobAPIwithFakeData {
+public class CreateJobAPIwithFakeDataTest {
 
 	private CreateJobPayload createJobPayload;
 	private JobService jobService;

@@ -7,11 +7,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DatabaseManager;
 import com.dataproviders.api.bean.CreateJobBean;
 
 public class CreateJobPayloadDataDao {
 
+	private static final Logger LOGGER = LogManager.getLogger(CreateJobPayloadDataDao.class);
 	private static final String SQL_QUERY = """
 									select
 			first_name,
@@ -65,13 +69,10 @@ public class CreateJobPayloadDataDao {
 
 
 						""";
-	
-	private CreateJobPayloadDataDao()
-	{
-		
+
+	private CreateJobPayloadDataDao() {
+
 	}
-	
-	
 
 	public static List<CreateJobBean> getCreateJobPayloadData() {
 		Connection conn = null;
@@ -81,8 +82,11 @@ public class CreateJobPayloadDataDao {
 
 		// to get the data first need to establish the connection
 		try {
+
+			LOGGER.info("Getting the connection from databse manager");
 			conn = DatabaseManager.getConnection();
 			statement = conn.createStatement();
+			LOGGER.info("Executing the sql query {}", SQL_QUERY);
 			resultSet = statement.executeQuery(SQL_QUERY);
 
 			while (resultSet.next()) {
@@ -124,13 +128,15 @@ public class CreateJobPayloadDataDao {
 			}
 
 		} catch (SQLException e) {
+
+			LOGGER.info("Canot convert the result set to bean", e);
 			e.printStackTrace();
 		}
 		for (CreateJobBean b : beanList) {
 			System.out.println(b);
-	}
-	
+		}
+
 		return beanList;
 
-}
+	}
 }

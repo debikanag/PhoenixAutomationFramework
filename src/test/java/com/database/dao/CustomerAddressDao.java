@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DatabaseManager;
 import com.database.model.CustomerAddressDBModel;
 
@@ -12,7 +15,7 @@ public class CustomerAddressDao {
 
 	// Executing the query for the tr_customer_address table! which will get the
 	// details of customer address
-
+	private static final Logger LOGGER = LogManager.getLogger(CustomerAddressDao.class);
 	private static final String CUSTOMER_ADDRESS_QUERY = """
 			select id,
 				flat_number,
@@ -36,9 +39,10 @@ public class CustomerAddressDao {
 		CustomerAddressDBModel customerAddressDBModel = null;
 
 		try {
+			LOGGER.info("Getting the connection from databse manager");
 
 			Connection conn = DatabaseManager.getConnection();
-
+			LOGGER.info("Executing the sql query {}", CUSTOMER_ADDRESS_QUERY);
 			PreparedStatement preparedStatement = conn.prepareStatement(CUSTOMER_ADDRESS_QUERY);
 			preparedStatement.setInt(1, customerAddressId);
 
@@ -49,12 +53,13 @@ public class CustomerAddressDao {
 			{
 
 				customerAddressDBModel = new CustomerAddressDBModel(resultSet.getInt("id"),
-						resultSet.getString("flat_number"),
-						resultSet.getString("apartment_name"), resultSet.getString("street_name"),
-						resultSet.getString("landmark"), resultSet.getString("area"), resultSet.getString("pincode"),
-						resultSet.getString("country"), resultSet.getString("state"));
+						resultSet.getString("flat_number"), resultSet.getString("apartment_name"),
+						resultSet.getString("street_name"), resultSet.getString("landmark"),
+						resultSet.getString("area"), resultSet.getString("pincode"), resultSet.getString("country"),
+						resultSet.getString("state"));
 			}
 		} catch (SQLException e) {
+			LOGGER.error("Cannot convert the result set to the CustomerAddressDBModel bean", e);
 
 			e.printStackTrace();
 		}

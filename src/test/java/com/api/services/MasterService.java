@@ -6,6 +6,9 @@ import static io.restassured.RestAssured.given;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.constant.Role;
 
 import io.restassured.response.Response;
@@ -13,9 +16,10 @@ import io.restassured.response.Response;
 public class MasterService {
 
 	private static final String MASTER_ENDPOINT = "/master";
+	private static final Logger LOGGER = LogManager.getLogger(MasterService.class);
 
 	public Response master(Role role) throws IOException {
-
+		LOGGER.info("Making request to the {} for the role {}", MASTER_ENDPOINT,role);
 		Response response = given().spec(requestSpecWithAuth(role)).when().post(MASTER_ENDPOINT);
 
 		return response;
@@ -23,6 +27,8 @@ public class MasterService {
 	}
 
 	public Response masterInvalidToken() throws IOException {
+		
+		LOGGER.info("Making request to the {} with no auth Token", MASTER_ENDPOINT);
 
 		Response response = given().spec(requestSpec()).when().post(MASTER_ENDPOINT);
 

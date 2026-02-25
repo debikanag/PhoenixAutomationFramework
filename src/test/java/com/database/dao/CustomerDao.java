@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DatabaseManager;
 import com.database.model.CustomerDBModel;
 
@@ -12,6 +15,8 @@ public class CustomerDao {
 
 	// Executing the query for the tr_customer table! which will get the details of
 	// customer
+
+	private static final Logger LOGGER = LogManager.getLogger(CustomerDao.class);
 
 	private static final String CUSTOMER_DETAIL_QUERY = "select * from tr_customer WHERE id = ? ";
 
@@ -22,8 +27,11 @@ public class CustomerDao {
 	public static CustomerDBModel getCustomerInformation(int customerId) throws SQLException {
 		CustomerDBModel customerDBModel = null;
 		try {
+
+			LOGGER.info("Getting the connection from databse manager");
 			Connection conn = DatabaseManager.getConnection();
 
+			LOGGER.info("Executing the sql query {}", CUSTOMER_DETAIL_QUERY);
 			PreparedStatement preparedStatement = conn.prepareStatement(CUSTOMER_DETAIL_QUERY);
 			preparedStatement.setInt(1, customerId);
 
@@ -39,7 +47,7 @@ public class CustomerDao {
 						resultSet.getString("email_id_alt"), resultSet.getInt("tr_customer_address_id"));
 			}
 		} catch (SQLException e) {
-
+			LOGGER.error("Cannot convert the result set to the CustomerDBModel bean", e);
 			e.printStackTrace();
 		}
 
