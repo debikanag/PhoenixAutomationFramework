@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.hamcrest.Matchers;
 
 import com.api.constant.Role;
+import com.api.filters.SensitiveDataFilter;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -32,8 +33,10 @@ public class SpecUtil {
 	public static RequestSpecification requestSpec(Object payload) throws IOException {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
-				.setContentType(ContentType.JSON).setAccept(ContentType.JSON).setBody(payload).log(LogDetail.URI)
-				.log(LogDetail.METHOD).log(LogDetail.HEADERS).log(LogDetail.BODY).build();
+				.setContentType(ContentType.JSON).setAccept(ContentType.JSON).setBody(payload)
+				.addFilter(new SensitiveDataFilter())
+
+				.log(LogDetail.URI).log(LogDetail.METHOD).log(LogDetail.HEADERS).log(LogDetail.BODY).build();
 		return requestSpecification;
 
 	}
