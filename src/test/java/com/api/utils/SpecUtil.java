@@ -11,7 +11,6 @@ import com.api.filters.SensitiveDataFilter;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -22,8 +21,8 @@ public class SpecUtil {
 	public static RequestSpecification requestSpec() throws IOException {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
-				.setContentType(ContentType.JSON).setAccept(ContentType.JSON).log(LogDetail.URI).log(LogDetail.METHOD)
-				.log(LogDetail.HEADERS).log(LogDetail.BODY).build();
+				.setContentType(ContentType.JSON).setAccept(ContentType.JSON).addFilter(new SensitiveDataFilter())
+				.build();
 		return requestSpecification;
 
 	}
@@ -34,9 +33,7 @@ public class SpecUtil {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
 				.setContentType(ContentType.JSON).setAccept(ContentType.JSON).setBody(payload)
-				.addFilter(new SensitiveDataFilter())
-
-				.log(LogDetail.URI).log(LogDetail.METHOD).log(LogDetail.HEADERS).build();
+				.addFilter(new SensitiveDataFilter()).build();
 		return requestSpecification;
 
 	}
@@ -45,8 +42,8 @@ public class SpecUtil {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
 				.setContentType(ContentType.JSON).setAccept(ContentType.JSON)
-				.addHeader("Authorization", AuthTokenProvider.getToken(role)).log(LogDetail.URI).log(LogDetail.METHOD)
-				.log(LogDetail.HEADERS).log(LogDetail.BODY).build();
+				.addHeader("Authorization", AuthTokenProvider.getToken(role)).addFilter(new SensitiveDataFilter())
+				.build();
 		return requestSpecification;
 
 	}
@@ -55,18 +52,17 @@ public class SpecUtil {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
 				.setContentType(ContentType.JSON).setAccept(ContentType.JSON)
-				.addHeader("Authorization", AuthTokenProvider.getToken(role)).setBody(payload).log(LogDetail.URI)
-				.log(LogDetail.METHOD).log(LogDetail.HEADERS).log(LogDetail.BODY).build();
+				.addHeader("Authorization", AuthTokenProvider.getToken(role)).setBody(payload)
+				.addFilter(new SensitiveDataFilter()).build();
 		return requestSpecification;
 
 	}
 
 	public static ResponseSpecification responseSpec_OK() {
-		
+
 		ResponseSpecification responseSpecification = new ResponseSpecBuilder().expectContentType(ContentType.JSON)
 				.expectStatusCode(200).expectResponseTime(Matchers.lessThan(2000L)).build();
 
-	
 		return responseSpecification;
 
 	}
