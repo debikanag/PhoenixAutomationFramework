@@ -170,7 +170,13 @@
     <scope>compile</scope>
 </dependency>
 
-
+<!-- Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
+<dependency>
+    <groupId>io.qameta.allure</groupId>
+    <artifactId>allure-rest-assured</artifactId>
+    <version>2.33.0</version>
+    <scope>compile</scope>
+</dependency>
 
 </dependencies>
 </project>
