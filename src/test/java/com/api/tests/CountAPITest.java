@@ -19,7 +19,17 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.services.DashboardService;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+
 @Listeners(com.listeners.APITestListener.class)
+@Epic("Job Management")
+@Feature("Job Count")
 public class CountAPITest {
 
 	private DashboardService dashboardService;
@@ -29,6 +39,10 @@ public class CountAPITest {
 	public void setup() {
 		dashboardService = new DashboardService();
 	}
+
+	@Story("Job Count Data is shown correctly")
+	@Description("Job Count Data is shown correctly")
+	@Severity(SeverityLevel.CRITICAL)
 
 	@Test(description = "Verify if count api is correct response", groups = { "api", "regression", "smoke" })
 	public void verifyCountAPIResponse() throws IOException {
@@ -40,6 +54,10 @@ public class CountAPITest {
 				.body("data.key", containsInAnyOrder("pending_for_delivery", "pending_fst_assignment", "created_today"))
 				.body(matchesJsonSchemaInClasspath("response-schema/CountAPIResponseSchema-FD.json"));
 	}
+
+	@Story("Status code for invalid token is shown correctly")
+	@Description("Status code for invalid token is shown correctly")
+	@Severity(SeverityLevel.CRITICAL)
 
 	@Test(description = "Verify if count api is correct status code for invalid token", groups = { "api", "regression",
 			"smoke", "negative" })
