@@ -35,6 +35,14 @@
           <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
           
           </systemPropertyVariables>
+          
+          <argLine>
+          
+          -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar"
+          
+           </argLine>
+          
+          
         </configuration>
       </plugin>
 
@@ -42,6 +50,13 @@
 </plugins>
 </build>
 <dependencies>
+<!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.9.25.1</version>
+    <scope>runtime</scope>
+</dependency>
 <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 <dependency>
     <groupId>io.rest-assured</groupId>
