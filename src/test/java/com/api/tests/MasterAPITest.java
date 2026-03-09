@@ -18,7 +18,16 @@ import org.testng.annotations.Test;
 
 import com.api.constant.Role;
 import com.api.services.MasterService;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 @Listeners(com.listeners.APITestListener.class)
+@Epic("Job Management")
+@Feature("Master API")
 public class MasterAPITest {
 
 	private MasterService masterService;
@@ -28,6 +37,11 @@ public class MasterAPITest {
 	public void setup() {
 		masterService = new MasterService();
 	}
+	
+	@Story("Master API should bring OEM details,Problem type,Warranty Status")
+	@Description("Master API should bring OEM details,Problem type,Warranty Status")
+	@Severity(SeverityLevel.BLOCKER)
+
 
 	@Test(description = "Verify if master api is correct response", groups = { "api", "regression", "smoke" })
 	public void MasterAPITest() throws IOException {
@@ -43,6 +57,12 @@ public class MasterAPITest {
 				.body(matchesJsonSchemaInClasspath("response-schema/MasterAPIResponseSchema.json"));
 
 	}
+	
+	
+	@Story("Correct status code is shown for invalid token")
+	@Description("Correct status code is shown for invalid token")
+	@Severity(SeverityLevel.CRITICAL)
+
 
 	@Test(description = "Verify if master api is correct status code for invalid token", groups = { "api", "regression",
 			"smoke", "negative" })

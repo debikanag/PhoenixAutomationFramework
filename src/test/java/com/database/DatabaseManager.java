@@ -12,6 +12,8 @@ import com.api.utils.VaultDBConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import io.qameta.allure.Step;
+
 public class DatabaseManager {
 
 	// private static final String DB_URL = EnvUtil.getValue("DB_URL");
@@ -41,6 +43,8 @@ public class DatabaseManager {
 	private static final String DB_URL = loadSecret("DB_URL");
 	private static final String DB_USER_NAME = loadSecret("DB_USER_NAME");
 	private static final String DB_PASSWORD = loadSecret("DB_PASSWORD");
+
+	@Step("Loading Database secrets")
 
 	public static String loadSecret(String key) {
 		String value = null;
@@ -75,6 +79,7 @@ public class DatabaseManager {
 
 	}// singleton class
 
+	@Step("Initializing Database Connection Pool")
 	public static void initializePool() {
 
 		// double checking lock pattern
@@ -109,6 +114,7 @@ public class DatabaseManager {
 
 	}
 
+	@Step("Getting the Database Connection")
 	public static Connection getConnection() throws SQLException {
 
 		if (hikariDataSource == null) {

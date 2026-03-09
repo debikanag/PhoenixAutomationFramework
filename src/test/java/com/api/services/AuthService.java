@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import com.api.request.model.UserCredentials;
 import com.dataproviders.api.bean.UserBean;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class AuthService {
@@ -21,6 +22,10 @@ public class AuthService {
 
 	private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
 
+	
+	
+	
+	@Step("Perform login request with the user credentials")
 	public Response login(UserBean userBean) throws IOException {
 
 		UserCredentials userCredentials = new UserCredentials(userBean.getUsername(), userBean.getPassword());

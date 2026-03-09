@@ -28,7 +28,16 @@ import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.api.services.JobService;
 import com.api.utils.DateTimeUtil;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 @Listeners(com.listeners.APITestListener.class)
+@Epic("Job Management")
+@Feature("Job Creation")
 public class CreateJobAPITest {
 
 	private CreateJobPayload createJobPayload;
@@ -40,8 +49,8 @@ public class CreateJobAPITest {
 		CustomerAddress customerAddress = new CustomerAddress("912", "Thames", "Napier", "Station", "Reading", "700129",
 				"Berkshire", "UK");
 
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "88886592954988",
-				"88886592954988", "88886592954988", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(10), "88886596754988",
+				"88886596754988", "88886596754988", DateTimeUtil.getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
 				Model.NEXUS_2_BLUE.getCode());
 
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
@@ -55,6 +64,11 @@ public class CreateJobAPITest {
 
 		jobService = new JobService();
 	}
+	
+	
+	@Story("FD should be able to create Job")
+	@Description("FD should be able to create Job")
+	@Severity(SeverityLevel.BLOCKER)
 
 	@Test(description = "Verify if create job api is able to create Inwarranty job", groups = { "api", "regression",
 			"smoke" })

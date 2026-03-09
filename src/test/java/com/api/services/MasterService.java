@@ -11,13 +11,16 @@ import org.apache.logging.log4j.Logger;
 
 import com.api.constant.Role;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class MasterService {
 
 	private static final String MASTER_ENDPOINT = "/master";
 	private static final Logger LOGGER = LogManager.getLogger(MasterService.class);
-
+	
+	
+	@Step("Making Master API request" )
 	public Response master(Role role) throws IOException {
 		LOGGER.info("Making request to the {} for the role {}", MASTER_ENDPOINT,role);
 		Response response = given().spec(requestSpecWithAuth(role)).when().post(MASTER_ENDPOINT);
