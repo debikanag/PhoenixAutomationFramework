@@ -1,5 +1,6 @@
 name: Phoenix Test Automation Workflow
-
+permissions:
+  contents: write
 on:
   push:
     branches: [ "master" ]
@@ -65,6 +66,10 @@ jobs:
       run: |
         echo "Checking Allure report directory"
         ls -R target
+        if [ ! -d target/site/allure-maven-plugin ]; then
+          echo "Allure report folder not found! Aborting gh-pages deployment."
+          exit 1
+        fi
 
     - name: Creating github page branch
       if: always()
