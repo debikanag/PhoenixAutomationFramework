@@ -59,10 +59,12 @@ jobs:
     - name: Generating Allure Report
       if: always()
       run: mvn allure:report
+      
     - name: Verify Allure Report Folder
+      if: always()
       run: |
-       echo "Checking Allure report directory"
-       ls -R target
+        echo "Checking Allure report directory"
+        ls -R target
 
     - name: Creating github page branch
       if: always()
