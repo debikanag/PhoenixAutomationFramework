@@ -1,55 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-06T12:50:37 GMT" name="Default suite" finished-at="2026-03-06T12:50:39 GMT" duration-ms="2137">
+  <suite started-at="2026-03-10T12:54:01 GMT" name="Default suite" finished-at="2026-03-10T12:54:07 GMT" duration-ms="5410">
     <groups>
-      <group name="datadriven">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.dataproviders.api.bean.UserBean)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
-      </group> <!-- datadriven -->
       <group name="regression">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.dataproviders.api.bean.UserBean)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
+        <method signature="LoginAPITest.loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@7f13811b]" name="loginAPITest" class="com.api.tests.LoginAPITest"/>
       </group> <!-- regression -->
-      <group name="json">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.dataproviders.api.bean.UserBean)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
-      </group> <!-- json -->
+      <group name="smoke">
+        <method signature="LoginAPITest.loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@7f13811b]" name="loginAPITest" class="com.api.tests.LoginAPITest"/>
+      </group> <!-- smoke -->
       <group name="api">
-        <method signature="LoginAPIJSONDataDrivenTest.loginAPITest(com.dataproviders.api.bean.UserBean)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" name="loginAPITest" class="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest"/>
+        <method signature="LoginAPITest.loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@7f13811b]" name="loginAPITest" class="com.api.tests.LoginAPITest"/>
       </group> <!-- api -->
     </groups>
-    <test started-at="2026-03-06T12:50:37 GMT" name="Default test" finished-at="2026-03-06T12:50:39 GMT" duration-ms="2137">
-      <class name="com.api.tests.datadriven.LoginAPIJSONDataDrivenTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" started-at="2026-03-06T12:50:37 GMT" name="setup" description="Initializing the Auth Service" finished-at="2026-03-06T12:50:37 GMT" duration-ms="4" status="PASS">
+    <test started-at="2026-03-10T12:54:01 GMT" name="Default test" finished-at="2026-03-10T12:54:07 GMT" duration-ms="5410">
+      <class name="com.api.tests.LoginAPITest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.LoginAPITest@7f13811b]" started-at="2026-03-10T12:54:02 GMT" name="setup" description="Create the request payload for login api" finished-at="2026-03-10T12:54:02 GMT" duration-ms="35" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" started-at="2026-03-06T12:50:37 GMT" name="setup" description="Initializing the Auth Service" finished-at="2026-03-06T12:50:37 GMT" duration-ms="4" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="loginAPITest(com.dataproviders.api.bean.UserBean)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" started-at="2026-03-06T12:50:37 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" data-provider="LoginAPIJsonDataProvider" finished-at="2026-03-06T12:50:39 GMT" duration-ms="1979" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[UserBean [username=iamsup, password=password]]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="loginAPITest()[pri:0, instance:com.api.tests.LoginAPITest@7f13811b]" started-at="2026-03-10T12:54:02 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" finished-at="2026-03-10T12:54:07 GMT" duration-ms="4850" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAPITest -->
-        <test-method signature="loginAPITest(com.dataproviders.api.bean.UserBean)[pri:0, instance:com.api.tests.datadriven.LoginAPIJSONDataDrivenTest@62727399]" started-at="2026-03-06T12:50:37 GMT" name="loginAPITest" description="Verifying if login api is working for FD user" data-provider="LoginAPIJsonDataProvider" finished-at="2026-03-06T12:50:39 GMT" duration-ms="1979" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[UserBean [username=iamfd, password=password]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginAPITest -->
-      </class> <!-- com.api.tests.datadriven.LoginAPIJSONDataDrivenTest -->
+      </class> <!-- com.api.tests.LoginAPITest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
